@@ -1,5 +1,3 @@
-from urllib import response
-from xml.dom.minidom import Document
 from rest_framework.test import APITestCase
 from .models import Person
 
