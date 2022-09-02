@@ -1,23 +1,48 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useEffect} from 'react';
+
 
 function App() {
+  
+  const url = 'http://127.0.0.1:8000/api/person/';
+  const [persons, setPersons] = React.useState([]);
+
+  // get data from api
+  const fetchData = async () => {
+  const response = await fetch(url);
+  const data = await response.json();
+  setPersons(data);
+  return data;
+}
+
+  useEffect(() => {
+    fetchData() 
+  }, [])
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <tr>
+        <th>Tipo de documento</th>
+        <th>Numero de documento</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Hobby</th>
+      </tr>
+      <ul>
+        { !persons ? <h1>Loading...</h1> : 
+        persons.map((person, index) => {
+            return (
+              <tr key={index}>
+                <td>{person.document_type}</td>
+                <td>{person.document_number}</td>
+                <td>{person.first_name}</td>
+                <td>{person.last_name}</td>
+                <td>{person.hobbie}</td>
+              </tr>
+            )
+          })
+        }    
+      </ul>
     </div>
   );
 }
