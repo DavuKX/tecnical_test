@@ -13,3 +13,9 @@ export const selectedPerson = (person) => {
         payload: person,
     };
 };
+
+export const removeSelectedPerson = () => {
+    return {
+        type: ActionTypes.REMOVE_SELECTED_PERSON,
+    };
+};

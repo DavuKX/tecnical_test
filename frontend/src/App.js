@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './containers/Header';
 import PersonListing from './containers/PersonListing';
 import PersonDetail from './containers/PersonDetail';
@@ -11,13 +11,12 @@ function App() {
         <div className="App">
             <Router>
               <Header />
-              <Switch>
-                <Route exact path="/" component={PersonListing} />
-                <Route path="/person/:id" component={PersonDetail} />
+              <Routes>
+                <Route exact path="/" element={<PersonListing/>} />
+                <Route exact path="/person/:id" element={<PersonDetail/>} />
                 <Route>404 Not Found!</Route>
-              </Switch>
+              </Routes>
             </Router>
-            <h1>Hello</h1>
         </div>
       );
 };
