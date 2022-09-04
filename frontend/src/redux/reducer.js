@@ -20,6 +20,12 @@ const personsReducers = (state = initialState, action) => {
                 persons: state.persons.filter(person => person.id !== action.payload),
                 loading: false
             };
+        case types.ADD_PERSON:
+            return {
+                ...state,
+                persons: [...state.persons, action.payload],
+                loading: false
+            };
         default:
             return state;
     }

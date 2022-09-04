@@ -11,6 +11,11 @@ const personDeleted = (id) => ({
     payload: id
 });
 
+const personAdded = (person) => ({
+    type: types.ADD_PERSON,
+    payload: person
+});
+
 export const fetchPersons = () => {
     return function (dispatch) {
         return axios.get(`http://localhost:8000/api/person`)
@@ -29,6 +34,18 @@ export const deletePerson = (id) => {
             .then(response => {
                 dispatch(personDeleted());
                 dispatch(fetchPersons());
+            })
+            .catch(error => {
+                throw(error);
+            });
+    }
+}
+
+export const addPerson = (person) => {
+    return function (dispatch) {
+        return axios.post(`http://localhost:8000/api/person/`, person)
+            .then(response => {
+                dispatch(personAdded());
             })
             .catch(error => {
                 throw(error);

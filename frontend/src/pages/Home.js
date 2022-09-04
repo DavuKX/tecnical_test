@@ -13,6 +13,7 @@ import { fetchPersons } from '../redux/actions';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { deletePerson } from '../redux/actions';
+import { useNavigate } from 'react-router-dom';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -33,12 +34,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       border: 0,
     },
   }));
-  
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-
-
 
 const Home = () => {
 
@@ -47,6 +42,7 @@ const Home = () => {
         dispatch(fetchPersons())
     }, [])
 
+    let navigate = useNavigate()
     const { persons } = useSelector(state => state.data)
 
     const handleDelete = (id) => {
@@ -56,7 +52,10 @@ const Home = () => {
     }
 
     return (
-        <div style={{marginTop: 100}}>
+        <div>
+          <div style={{margin: 10}}>
+            <Button color="primary" variant="contained" onClick={() => navigate("/addPerson")}>Add person</Button>
+          </div>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                     <TableHead>
