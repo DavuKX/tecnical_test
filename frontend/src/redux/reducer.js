@@ -26,6 +26,18 @@ const personsReducers = (state = initialState, action) => {
                 persons: [...state.persons, action.payload],
                 loading: false
             };
+        case types.GET_PERSON:
+            return {
+                ...state,
+                person: action.payload,
+                loading: false
+            };
+        case types.UPDATE_PERSON:
+            return {
+                ...state,
+                persons: state.persons.map(person => person.id === action.payload.id ? (person = action.payload) : person),
+                loading: false
+            };
         default:
             return state;
     }

@@ -16,9 +16,19 @@ const personAdded = (person) => ({
     payload: person
 });
 
+const getPerson = (person) => ({
+    type: types.GET_PERSON,
+    payload: person
+});
+
+const personUpdated = (person) => ({
+    type: types.UPDATE_PERSON,
+    payload: person
+});
+
 export const fetchPersons = () => {
     return function (dispatch) {
-        return axios.get(`http://localhost:8000/api/person`)
+        return axios.get(`http://localhost:8000/api/person/`)
             .then(response => {
                 dispatch(getPersons(response.data));
             })
@@ -30,7 +40,7 @@ export const fetchPersons = () => {
 
 export const deletePerson = (id) => {
     return function (dispatch) {
-        return axios.delete(`http://localhost:8000/api/person/${id}`)
+        return axios.delete(`http://localhost:8000/api/person/${id}/`)
             .then(response => {
                 dispatch(personDeleted());
                 dispatch(fetchPersons());
@@ -46,6 +56,32 @@ export const addPerson = (person) => {
         return axios.post(`http://localhost:8000/api/person/`, person)
             .then(response => {
                 dispatch(personAdded());
+                dispatch(fetchPersons());
+            })
+            .catch(error => {
+                throw(error);
+            });
+    }
+}
+
+export const fetchPerson = (id) => {
+    return function (dispatch) {
+        return axios.get(`http://localhost:8000/api/person/${id}/`)
+            .then(response => {
+                dispatch(getPerson(response.data));
+            })
+            .catch(error => {
+                throw(error);
+            });
+    }
+}
+
+export const updatePerson = (person, id) => {
+    return function (dispatch) {
+        return axios.put(`http://localhost:8000/api/person/${id}/`, person)
+            .then(response => {
+                dispatch(personUpdated());
+                dispatch(fetchPersons());
             })
             .catch(error => {
                 throw(error);

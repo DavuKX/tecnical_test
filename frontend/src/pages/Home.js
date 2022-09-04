@@ -84,7 +84,7 @@ const Home = () => {
                         <StyledTableCell align="center">{person.hobbie}</StyledTableCell>
                         <StyledTableCell align="center">
                         <ButtonGroup variant="contained"  aria-label="text button group">
-                          <Button style={{marginRight: "5px"}} color="primary">Edit</Button>
+                          <Button style={{marginRight: "5px"}} color="primary" onClick={() => navigate(`/editPerson/${person.id}`)}>Edit</Button>
                           <Button onClick={() => handleDelete(person.id)}  color="error">Delete</Button>
                         </ButtonGroup>
                         </StyledTableCell>
